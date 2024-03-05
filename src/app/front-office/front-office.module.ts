@@ -7,6 +7,8 @@ import { SigninComponent } from './components/signin/signin.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarFrontComponent } from './components/navbar-front/navbar-front.component';
 import { FooterFrontComponent } from './components/footer-front/footer-front.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { FooterFrontComponent } from './components/footer-front/footer-front.com
   ],
   imports: [
     CommonModule,
-    FrontOfficeRoutingModule
+    FrontOfficeRoutingModule,
+    ReactiveFormsModule,
+   HttpClientModule
   ]
 })
 export class FrontOfficeModule { }

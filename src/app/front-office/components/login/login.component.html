@@ -1,21 +1,23 @@
 <div class="login-area login-s2">
   <div class="container">
     <div class="login-box ptb--100">
-      <form>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="login-form-head">
           <h4>Login</h4>
-          <p>Hello there, Login and start managing your business </p>
+          <p>Hello there, Login and start managing your business</p>
         </div>
         <div class="login-form-body">
           <div class="form-gp">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" id="exampleInputEmail1">
+            <label for="exampleInputEmail1">Login</label>
+            <!-- Updated form control name to match TypeScript definition -->
+            <input type="email" id="exampleInputEmail1" formControlName="login">
             <i class="ti-email"></i>
             <div class="text-danger"></div>
           </div>
           <div class="form-gp">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" id="exampleInputPassword1">
+            <!-- Updated form control name to match TypeScript definition -->
+            <input type="password" id="exampleInputPassword1" formControlName="password">
             <i class="ti-lock"></i>
             <div class="text-danger"></div>
           </div>
@@ -31,14 +33,14 @@
             </div>
           </div>
           <div class="submit-btn-area">
-            <button id="form_submit" type="submit">Submit <i class="ti-arrow-right"></i></button>
+            <button id="form_submit" type="submit" routerLink="/Admin">Submit <i class="ti-arrow-right"></i></button>
           </div>
           <div class="form-footer text-center mt-5">
             <p class="text-muted">Don't have an account? <a routerLink="/signin">Sign up</a></p>
           </div>
           <div class="form-footer text-center mt-5">
-          <p class="text-muted"><a routerLink="">Go back </a></p>
-        </div>
+            <p class="text-muted"><a routerLink="">Go back </a></p>
+          </div>
         </div>
       </form>
     </div>
