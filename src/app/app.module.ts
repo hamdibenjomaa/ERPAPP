@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {RouterModule} from "@angular/router";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import BrowserAnimationsModule
 
 @NgModule({
   declarations: [
@@ -14,10 +17,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    
   ],
   exports: [],
   bootstrap: [AppComponent]
