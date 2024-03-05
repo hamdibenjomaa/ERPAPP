@@ -1,0 +1,44 @@
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header" routerLinkActive="active">
+
+            <a routerLink="/Admin/ListProducts">
+              <h4>
+                <i class="ti-user"></i>
+                Add a new Product
+              </h4>
+            </a>
+          </div>    
+          <div>
+            <table class="dbkit-table">
+              <tr class="heading-td">
+                <td class="mv-icon">Image</td>
+                <td class="coin-name">Name Product</td>
+                <td class="buy">Discount</td>
+                <td class="sell">Price</td>
+                <td class="trends">Quantity</td>
+                <td class="trends">type</td>
+
+              
+              </tr>
+            
+              <tr *ngFor="let product of products">
+                <td>{{ product.nameP }}</td>
+                <td>{{ product.discount }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.type }}</td>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
