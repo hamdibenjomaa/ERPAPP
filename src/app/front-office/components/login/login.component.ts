@@ -13,8 +13,6 @@ export class LoginComponent {
   loginError: string = ''; // Initialize with an empty string for error message
   
   constructor(private authService: UserService, private router: Router) {}
-
-
   login(): void {
     this.authService.login(this.email, this.password)
       .subscribe(
