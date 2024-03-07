@@ -22,8 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     FrontOfficeRoutingModule,
-    ReactiveFormsModule,
-   HttpClientModule
+    
   ]
 })
 export class FrontOfficeModule { }

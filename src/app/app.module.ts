@@ -17,9 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    ReactiveFormsModule,
-    FontAwesomeModule,
-    HttpClientModule
+    FontAwesomeModule
   ],
   providers: [
     provideClientHydration()
