@@ -10,6 +10,7 @@ import { SidebarAdminComponent } from './shared-components/sidebar-admin/sidebar
 import { SidebarSalesComponent } from './shared-components/sidebar-sales/sidebar-sales.component';
 import { SidebarStockComponent } from './shared-components/sidebar-stock/sidebar-stock.component';
 import { SidebarAuditComponent } from './shared-components/sidebar-audit/sidebar-audit.component';
+import { SidebarSuperadminComponent } from './shared-components/sidebar-superadmin/sidebar-superadmin.component';
 
 
 
@@ -23,7 +24,8 @@ import { SidebarAuditComponent } from './shared-components/sidebar-audit/sidebar
     SidebarAdminComponent,
     SidebarSalesComponent,
     SidebarStockComponent,
-    SidebarAuditComponent
+    SidebarAuditComponent,
+    SidebarSuperadminComponent
   ],
   exports: [
     NavbarComponent,

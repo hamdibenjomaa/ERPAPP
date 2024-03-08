@@ -1,5 +1,3 @@
-
-
 <!-- page container area start -->
 <div class="page-container">
 
@@ -17,7 +15,19 @@
     <router-outlet></router-outlet>
     <!-- main area end-->
 
-
+    <!-- Sidebar based on user role -->
+    <div *ngIf="currentUserRole === 'admin'">
+      <app-sidebar-admin></app-sidebar-admin>
+    </div>
+    <div *ngIf="currentUserRole === 'salesManager'">
+      <app-sidebar-sales></app-sidebar-sales>
+    </div>
+    <div *ngIf="currentUserRole === 'stockManager'">
+      <app-sidebar-stock></app-sidebar-stock>
+    </div>
+    <div *ngIf="currentUserRole === 'auditor'">
+      <app-sidebar-audit></app-sidebar-audit>
+    </div>
   </div>
   <!-- main content area end-->
   <!-- footer area start-->
@@ -25,4 +35,3 @@
   <!-- footer area end-->
 </div>
 <!-- page container area end -->
-

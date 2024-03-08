@@ -7,7 +7,7 @@ import { HelloComponent } from './components/hello/hello.component';
 import { UsersComponent } from './components/users/users.component';
 import { AdduserComponent } from './components/adduser/adduser.component';
 import { UpdateuserComponent } from './components/updateuser/updateuser.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ProfileComponent } from './components/profile/profile.component';
 
 
@@ -24,7 +24,8 @@ import { ProfileComponent } from './components/profile/profile.component';
         CommonModule,
         AdminRoutingModule,
         SharedModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule 
     ]
 })
 export class AdminModule { }

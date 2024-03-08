@@ -76,5 +76,29 @@ export class UserService {
       return new Observable(observer => observer.error('Token not available'));
     }
   }
-  
+  uploadProfilePicture(file: File, userId: string) {
+    const formData = new FormData();
+    formData.append('profilePicture', file);
+
+    // Make sure to adjust the endpoint to match your backend route
+    return this.http.post(`http://localhost:3000/users/${userId}/upload`, formData);
+  }
+  getAllUsers(): Observable<any[]> {
+
+     const token = localStorage.getItem('token');
+    
+    // If token exists, include it in the request headers
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      });
+      return this.http.get<any>('http://localhost:3000/users', { headers });
+    } else {
+     
+      return new Observable(observer => observer.error('Token not available'));
+    }
+  }
+  createUser(user: any): Observable<any> {
+    return this.http.post<any>(`http://localhost:3000/users/register`, user);
+  }
 }  

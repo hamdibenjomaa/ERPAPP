@@ -1,0 +1,26 @@
+.user-profile {
+    background-color: #eee;
+  }
+  
+  .user-card {
+    border: none;
+  }
+  
+  .user-avatar {
+    width: 150px;
+  }
+  
+  .user-details {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+  }
+  
+  .detail-label {
+    font-weight: bold;
+  }
+  
+  .detail-value {
+    color: #6c757d;
+  }
+  
