@@ -17,7 +17,7 @@
 
     <!-- Sidebar based on user role -->
     <div *ngIf="currentUserRole === 'admin'">
-      <app-sidebar-admin></app-sidebar-admin>
+      <app-sidebar-admin-company></app-sidebar-admin-company>
     </div>
     <div *ngIf="currentUserRole === 'salesManager'">
       <app-sidebar-sales></app-sidebar-sales>
@@ -28,6 +28,9 @@
     <div *ngIf="currentUserRole === 'auditor'">
       <app-sidebar-audit></app-sidebar-audit>
     </div>
+  <!--  <div *ngIf="currentUserRole === 'SuperAdmin'">
+      <app-sidebar-admin></app-sidebar-admin>
+    </div>-->
   </div>
   <!-- main content area end-->
   <!-- footer area start-->

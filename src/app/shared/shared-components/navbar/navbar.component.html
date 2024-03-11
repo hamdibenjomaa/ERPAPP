@@ -159,7 +159,8 @@
         <li class="settings-btn">
           <i class="ti-user dropdown-toggle" data-toggle="dropdown"></i>
           <div class="dropdown-menu">
-            <a routerLink="/Admin/profile">Profile</a>
+            <!-- Dynamically set the link based on user's role -->
+            <a [routerLink]="userRole === 'SuperAdmin' ? '/Admin/profile' : '/AdminCompany/profile'">Profile</a>
             <a class="dropdown-item" href="#" (click)="logout()">Log Out</a>
           </div>
         </li>

@@ -11,6 +11,7 @@ import { SidebarSalesComponent } from './shared-components/sidebar-sales/sidebar
 import { SidebarStockComponent } from './shared-components/sidebar-stock/sidebar-stock.component';
 import { SidebarAuditComponent } from './shared-components/sidebar-audit/sidebar-audit.component';
 import { SidebarSuperadminComponent } from './shared-components/sidebar-superadmin/sidebar-superadmin.component';
+import { ConfirmationModalComponent } from './shared-components/confirmation-modal/confirmation-modal.component';
 
 
 
@@ -25,11 +26,15 @@ import { SidebarSuperadminComponent } from './shared-components/sidebar-superadm
     SidebarSalesComponent,
     SidebarStockComponent,
     SidebarAuditComponent,
-    SidebarSuperadminComponent
+    SidebarSuperadminComponent,
+    ConfirmationModalComponent
   ],
   exports: [
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    ConfirmationModalComponent
+
+    
   ],
     imports: [
         CommonModule,

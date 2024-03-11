@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   userName: string = '';
   companyName: string = ''; // Define the user object
+  userRole: string = ''; // Define user role
 
   constructor(private userService: UserService,private router: Router) {}
 
@@ -21,6 +22,9 @@ export class NavbarComponent implements OnInit {
         this.userName = response.fullName;
         // Access company name if it exists
         this.companyName = response.company ? response.company.nameCompany : '';
+        // Access user role if it exists
+        this.userRole = response.role;
+
       },
       error => {
         console.error('Failed to fetch user profile:', error);

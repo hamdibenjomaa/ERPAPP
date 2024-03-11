@@ -11,24 +11,42 @@
           </a>
         </div>
         <div>
-          <table class="dbkit-table">
+          <table class="dbkit-table" matSort>
             <tr class="heading-td">
-              <td class="coin-name">Full Name</td>
-              <td class="buy">Email</td>
-              <td class="sell">Role</td>
-              <td class="attachments">Company</td> <!-- Add Company column -->
-              <!-- Add more columns if needed -->
+              <th class="coin-name" mat-sort-header="fullName">Full Name</th>
+              <th class="buy" mat-sort-header="login">Email</th>
+              <th class="sell" mat-sort-header="role">Role</th>
+              <th class="attachments" mat-sort-header="companyName">Company</th>
+              <th>Actions</th>
             </tr>
-            <tr *ngFor="let user of users">
+            <tr *ngFor="let user of pagedUsers">
               <td class="coin-name">{{ user.fullName }}</td>
               <td class="buy">{{ user.login }}</td>
               <td class="sell">{{ user.role }}</td>
-              <td class="attachments">{{ user.companyName }}</td> <!-- Display Company name -->
-              <!-- Add more columns if needed -->
+              <td class="attachments">{{ user.companyName }}</td> 
+              <td>
+                <button class="activate-button"  
+                        [ngClass]="{'inactive': user.isActive, 'activated': !user.isActive}" 
+                        *ngIf="!user.isActive"
+                        (click)="activateUser(user._id)">Activate</button>
+                <button class="deactivate-button" [disabled]="!user.isActive" [ngClass]="{'inactive': !user.isActive}" (click)="confirmDeactivate(user._id)">Deactivate</button>
+              </td>
             </tr>
           </table>
+        </div>
+        <div class="pagination justify-content-center">
+          <button class="btn btn-primary" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+          <span class="mx-2">Page {{ currentPage }} of {{ totalPages }}</span>
+          <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Include the confirmation modal component -->
+<app-confirmation-modal 
+  *ngIf="showConfirmationModal" 
+  (confirm)="confirmDeactivation()" 
+  (cancel)="cancelDeactivation()">
+</app-confirmation-modal>

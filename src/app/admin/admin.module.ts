@@ -9,6 +9,8 @@ import { AdduserComponent } from './components/adduser/adduser.component';
 import { UpdateuserComponent } from './components/updateuser/updateuser.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ProfileComponent } from './components/profile/profile.component';
+import { ConfirmationModalComponent } from '../shared/shared-components/confirmation-modal/confirmation-modal.component';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -19,13 +21,16 @@ import { ProfileComponent } from './components/profile/profile.component';
     UpdateuserComponent,
     ProfileComponent,
 
+
   ],
     imports: [
         CommonModule,
         AdminRoutingModule,
         SharedModule,
         ReactiveFormsModule,
-        FormsModule 
+        FormsModule,
+        MatSortModule,
+        
     ]
 })
 export class AdminModule { }

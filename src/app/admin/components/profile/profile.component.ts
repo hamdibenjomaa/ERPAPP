@@ -11,6 +11,7 @@ export class ProfileComponent implements OnInit {
   selectedFile: File | null = null; // Track the selected file
   imagePath: string | null = null; // Track the user's profile picture path
   companyName: string | null = null; // Track the user's company name
+  editMode: boolean = false; // Track whether the component is in edit mode
 
   constructor(private userService: UserService) { }
 
@@ -49,5 +50,28 @@ export class ProfileComponent implements OnInit {
       console.error('No file selected.');
     }
   }
-  
+
+  toggleEditMode() {
+    this.editMode = !this.editMode;
+  }
+
+  saveChanges() {
+    // Update user data only if edit mode is active
+    if (this.editMode) {
+      // Call the updateUser method from the UserService
+      this.userService.updateUser(this.user._id, this.user).subscribe(
+        (response: any) => {
+          console.log('User data updated:', response);
+          // For demonstration purposes, let's just toggle back to display mode
+          this.toggleEditMode();
+        },
+        error => {
+          console.error('Failed to update user data:', error);
+          // Handle error
+        }
+      );
+    } else {
+      console.warn('Cannot save changes when not in edit mode.');
+    }
+  }
 }
