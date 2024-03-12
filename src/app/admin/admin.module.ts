@@ -9,6 +9,9 @@ import { AdduserComponent } from './components/adduser/adduser.component';
 import { UpdateuserComponent } from './components/updateuser/updateuser.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { ProfileComponent } from './components/profile/profile.component';
+import { ListorderComponent } from './components/order/listorder/listorder.component';
+import { AddorderComponent } from './components/order/addorder/addorder.component';
+import { UpdateorderComponent } from './components/order/updateorder/updateorder.component';
 
 
 @NgModule({
@@ -18,6 +21,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     AdduserComponent,
     UpdateuserComponent,
     ProfileComponent,
+    ListorderComponent,
+    AddorderComponent,
+    UpdateorderComponent,
 
   ],
     imports: [

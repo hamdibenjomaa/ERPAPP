@@ -1,0 +1,47 @@
+<!-- listorder.component.html -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="header">
+          <h4>
+            <i class="ti-user"></i>
+            <a routerLink="/Admin/addorder">Add a new Order</a>
+          </h4>
+        </div>
+
+        <div>
+          <table class="dbkit-table">
+            <tr class="heading-td">
+              <td class="coin-name">Total Price</td>
+              <td class="buy">Status</td>
+              <td class="sell">Client</td>
+              <td class="sell">Products</td>
+              <td class="sell">Invoice</td>
+              <td class="sell">Actions</td>
+            </tr>
+
+            <tr *ngFor="let order of orders">
+              <td>{{ order.totalPrice }}</td>
+              <td>{{ order.status }}</td>
+              <td>{{ order.client }}</td>
+              <td>{{ order.products }}</td>
+              <td>{{ order.invoice }}</td>
+
+              <td>
+                <button class="btn btn-danger" (click)="deleteOrder(order._id)">
+                  Delete
+                </button>
+                <button class="btn btn-primary" (click)="updateOrder(order._id)">
+                  Update
+                </button>
+                
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
