@@ -1,3 +1,4 @@
+<!-- profile.component.html -->
 <section style="background-color: #eee;">
   <div class="container py-5">
     <div class="row">
@@ -81,6 +82,30 @@
             <button *ngIf="editMode" class="btn btn-success" (click)="saveChanges()">Save Changes</button>
           </div>
         </div>
+        <div class="card mb-4">
+          <div class="card-body">
+            <!-- Toggle change password mode button -->
+            <button class="btn btn-primary mb-3" (click)="toggleChangePasswordMode()">Change Password</button>
+        
+            <!-- Password change section -->
+            <div *ngIf="changePasswordMode">
+              <hr>
+              <form (submit)="changePassword()">
+                <div class="mb-3">
+                  <label for="currentPassword" class="form-label">Current Password</label>
+                  <input type="password" class="form-control" id="currentPassword" [(ngModel)]="currentPassword" name="currentPassword" required>
+                </div>
+                <div class="mb-3">
+                  <label for="newPassword" class="form-label">New Password</label>
+                  <input type="password" class="form-control" id="newPassword" [(ngModel)]="newPassword" name="newPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Change Password</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+        
       </div>
     </div>
   </div>

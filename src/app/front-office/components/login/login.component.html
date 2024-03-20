@@ -33,7 +33,13 @@
           <div class="submit-btn-area">
             <button type="submit">Submit <i class="ti-arrow-right"></i></button>
           </div>
-          <div *ngIf="loginError" class="text-danger">{{ loginError }}</div>
+          <div *ngIf="loginError" class="text-danger">
+            {{ loginError }}
+          </div>
+  
+          <div *ngIf="showMaxAttemptsMessage" class="text-danger">
+            Too many login attempts. Please try again later.
+          </div>
           <div class="form-footer text-center mt-5">
             <p class="text-muted">Don't have an account? <a routerLink="/signin">Sign up</a></p>
           </div>

@@ -1,27 +1,33 @@
   import { Injectable } from '@angular/core';
   import { HttpClient, HttpHeaders } from '@angular/common/http';
   import { catchError, map, tap } from 'rxjs/operators';
-  import { BehaviorSubject, Observable } from 'rxjs';
+  import { BehaviorSubject, Observable, throwError } from 'rxjs';
+  import { CookieService } from 'ngx-cookie-service';
+
   @Injectable({
     providedIn: 'root'
   })
   export class UserService {
+
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
     isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
     private token: string | null = null;
-    constructor(private http: HttpClient) { }
+
+    constructor(private http: HttpClient,private cookieService: CookieService) { }
     private resetPasswordUrl = 'http://localhost:3000/auth/reset-password';
 
+
     private setToken(token: string): void {
-      this.token = token;
-      localStorage.setItem('token', token); // Store token in localStorage
+      // Set cookie with secure flag
+      const expiryDate = new Date();
+      expiryDate.setHours(expiryDate.getHours() + 1);
+      this.cookieService.set('token', token, expiryDate, undefined, undefined, true, 'Lax');
       this.isAuthenticatedSubject.next(true);
     }
+    
+  
     private getToken(): string | null {
-      if (typeof localStorage !== 'undefined') {
-        return localStorage.getItem('token');
-      }
-      return null;
+      return this.cookieService.get('token') || null;
     }
     signup(fullName: string, email: string, password: string): Observable<any> {
       return this.http.post<any>('http://localhost:3000/users/register', { fullName, login: email, password })
@@ -40,9 +46,15 @@
             console.log('Login successful:', response);
             this.setToken(response.token); // Store token
           }),
+          
           catchError(error => {
-            console.error('Login failed:', error);
-            throw error;
+            if (error.status === 429) {
+              console.error('Rate limit exceeded:', error);
+              return throwError('Too many requests.Please try again later.');
+            } else {
+              console.error('Login failed:', error);
+              return throwError('Login failed. Invalid email or password, Please try again.');
+            }
           })
         );
     }
@@ -50,10 +62,10 @@
       return !!this.getToken(); // Return true if token exists, false otherwise
     }
     logout(): void {
-      this.token = null;
-      localStorage.removeItem('token'); // Remove token from localStorage
+      this.cookieService.delete('token');
       this.isAuthenticatedSubject.next(false);
     }
+
     forgotPassword(email: string): Observable<any> {
       return this.http.post<any>('http://localhost:3000/auth/forgot-password', { login: email });
     }
@@ -63,7 +75,7 @@
     }
     getUserProfile(): Observable<any> {
       // Retrieve the token from localStorage
-      const token = localStorage.getItem('token');
+      const token = this.getToken();
       
       // If token exists, include it in the request headers
       if (token) {
@@ -84,7 +96,7 @@
       return this.http.post(`http://localhost:3000/users/${userId}/upload`, formData);
     }
     getAllUsers(): Observable<any[]> {
-      const token = localStorage.getItem('token');
+    const token = this.getToken();
       
       if (token) {
         const headers = new HttpHeaders({
@@ -106,7 +118,7 @@
     }
 
     getAllUsersByCompany(companyId: string): Observable<any[]> {
-      const token = localStorage.getItem('token');
+      const token = this.getToken();
       if (token) {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${token}`
@@ -153,5 +165,36 @@
   
       return this.http.put<any>(`http://localhost:3000/users/${userId}/activate`, {}, { headers });
     }
-  
+   
+   changePassword(currentPassword: string, newPassword: string): Observable<any> {
+  const token = this.getToken();
+  if (!token) {
+    return new Observable(observer => observer.error('Token not available'));
+  }
+
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  // Pass both currentPassword and newPassword in the request body
+  return this.http.post<any>('http://localhost:3000/auth/change-password', { currentPassword, newPassword }, { headers });
+}
+
+    
+    
+    // Helper method to extract the user ID from the JWT token
+    private getUserIdFromToken(): string | null {
+      const token = this.getToken();
+      if (!token) {
+        return null;
+      }
+      // Extract the payload part of the JWT token
+      const payload = token.split('.')[1];
+      // Decode the payload from base64
+      const decodedPayload = window.atob(payload);
+      // Parse the decoded payload as JSON to access the user ID
+      const { userId } = JSON.parse(decodedPayload);
+      return userId;
+    }
+    
   }

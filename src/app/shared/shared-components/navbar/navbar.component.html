@@ -157,11 +157,15 @@
           </div>
         </li>
         <li class="settings-btn">
+          <!-- Profile and logout dropdown -->
           <i class="ti-user dropdown-toggle" data-toggle="dropdown"></i>
           <div class="dropdown-menu">
-            <!-- Dynamically set the link based on user's role -->
-            <a [routerLink]="userRole === 'SuperAdmin' ? '/Admin/profile' : '/AdminCompany/profile'">Profile</a>
-            <a class="dropdown-item" href="#" (click)="logout()">Log Out</a>
+            <a [routerLink]="roleRoutes[userRole]">
+              <i class="ti-user"></i> Profile
+            </a>
+            <a class="dropdown-item" href="#" (click)="logout()">
+              <i class="ti-power-off"></i> Log Out
+            </a>
           </div>
         </li>
       </ul>
@@ -185,7 +189,6 @@
           <i class="fa fa-info-circle" data-toggle="tooltip" title="{{ companyName }}"></i>
         </p>  
             </div>
-      
     </div>
   </div>
 </div>

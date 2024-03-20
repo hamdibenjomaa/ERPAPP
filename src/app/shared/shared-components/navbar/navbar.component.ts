@@ -11,7 +11,13 @@ export class NavbarComponent implements OnInit {
   userName: string = '';
   companyName: string = ''; // Define the user object
   userRole: string = ''; // Define user role
-
+  roleRoutes: any = {
+    SuperAdmin: '/Admin/profile',
+    admin: '/AdminCompany/profile', 
+    salesManager: '/Sales/profile',
+    stockManager: '/Stock/profile',
+    auditor: '/Audit/profile'
+  };
   constructor(private userService: UserService,private router: Router) {}
 
   ngOnInit(): void {

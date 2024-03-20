@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -12,8 +13,10 @@ export class ProfileComponent implements OnInit {
   imagePath: string | null = null; // Track the user's profile picture path
   companyName: string | null = null; // Track the user's company name
   editMode: boolean = false; // Track whether the component is in edit mode
-
-  constructor(private userService: UserService) { }
+  currentPassword: string = '';
+  newPassword: string = '';
+  changePasswordMode: boolean = false;
+  constructor(private userService: UserService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.userService.getUserProfile().subscribe(
@@ -73,5 +76,46 @@ export class ProfileComponent implements OnInit {
     } else {
       console.warn('Cannot save changes when not in edit mode.');
     }
+  }
+  toggleChangePasswordMode(): void {
+    this.changePasswordMode = !this.changePasswordMode;
+  }
+
+  changePassword(): void {
+    console.log('Current Password:', this.currentPassword);
+    console.log('New Password:', this.newPassword);
+  
+    // Check if both currentPassword and newPassword are not empty
+    if (this.currentPassword.trim() !== '' && this.newPassword.trim() !== '') {
+      if (!this.isPasswordValid(this.newPassword)) {
+        // Password does not meet criteria
+        this.toastr.error('Password must be at least 8 characters long with at least one letter and one number', 'Error');
+        return;
+      }
+      this.userService.changePassword(this.currentPassword, this.newPassword).subscribe(
+        (response: any) => {
+          console.log('Password changed successfully:', response);
+          // Reset password fields
+          this.currentPassword = '';
+          this.newPassword = '';
+          // Display success toastr notification
+          this.toastr.success('Password changed successfully', 'Success');
+        },
+        error => {
+          console.error('Failed to change password:', error);
+          // Handle error and provide feedback to the user
+          this.toastr.error('Failed to change password', 'Error');
+        }
+      );
+    } else {
+      console.warn('Please enter both current and new passwords.');
+      // Display warning toastr notification
+      this.toastr.warning('Please enter both current and new passwords', 'Warning');
+    }
+  }
+  isPasswordValid(password: string): boolean {
+    // Password must be at least 8 characters long with at least one letter and one number
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    return passwordRegex.test(password);
   }
 }
